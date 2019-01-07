@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        This is the Shopping-cart's website.
+        <h1>This is Tao's E-commerce website.</h1>
       </div>
     );
   }
