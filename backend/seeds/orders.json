@@ -1,0 +1,12 @@
+[{
+  "email": "tchu2@andrew.cmu.edu",
+  "cart": {"item1": {"title": "India", "qty": "1"},
+           "item2": {"title": "Korea", "qty": "2" }},
+  "totalPrice": "100"
+},
+{
+  "email": "b01502043@gmail.com",
+  "cart": {"item1": {"title": "Taiwan", "qty": "5"},
+           "item2": {"title": "China", "qty": "2"}},
+  "totalPrice": "1000"
+}]
