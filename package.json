@@ -1,0 +1,23 @@
+{
+  "name": "shopping-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taochu/E-commerce-Website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taochu/E-commerce-Website/issues"
+  },
+  "homepage": "https://github.com/taochu/E-commerce-Website#readme"
+}
