@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './all-books.css'
 import Book from './book'
 import axios from 'axios';
 
@@ -21,11 +20,19 @@ class AllBooks extends Component {
     render(){
         let books = this.state.books
         let booksList = books.map(book => {
-            return <Book data={ book }/>
+            return (
+                <div className="col-sm-6 col-md-4">
+                    <Book data={ book }/>
+                </div>
+            )
+                
         })
+
         return (
-            <div className="container">
-                { booksList }
+            <div className="books-container">
+                <div className="row">
+                    { booksList }
+                </div>
             </div>
         );
         

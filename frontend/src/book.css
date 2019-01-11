@@ -7,7 +7,16 @@
     border: 2px solid black;
     border-radius: 5px;
     margin: 20px;
+
+    transition-duration: 0.3s;
+    transition-property: transform;
+    transition-timing-function: ease-out;
 }
+
+.book-container:hover {
+    transform: translateY(-8px);
+}
+
 
 .book-left {
     grid-area: img;
@@ -31,7 +40,6 @@
     margin-left: 3px;
     padding-right: 8px;
     padding-top: 2px;
-    overflow: hidden;
 }
 
 .select-btn {
@@ -44,3 +52,4 @@
     right: 10px;
     top: 20px;
 }
+
