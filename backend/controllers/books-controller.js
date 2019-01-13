@@ -14,4 +14,15 @@ router.route('/all-books').get((req, res) => {
     })
 })
 
+router.route('/:uid').get((req, res) => {
+    Books.find({$text: {$search: req.params.uid}}, (err, books) => {
+        if(err){
+            throw err
+        }
+        else{
+            res.json(books)
+        }
+    })
+})
+
 module.exports = router

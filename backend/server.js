@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
+app.use(express.static("static_files"));
 
 router.get('/', (req, res) => {
     res.send('Hey')

@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import './book.css'
 
 class Book extends Component {
-    constructor(props) {
-        super(props)
-      }
     render(){
         return(
             <div className="book-container">
                 <div className="book-left">
-                    <img src={require('.'+this.props.data.thumbnailLink)} height="auto" width="100%"/>
+                    <img src={require('.'+this.props.data.thumbnailLink)} height="auto" width="100%" alt={this.props.data.thumbnailLink}/>
                 </div>
                 <div className="book-right">
                     <div className="metadata">

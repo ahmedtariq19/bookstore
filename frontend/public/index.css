@@ -14,11 +14,11 @@ header h1, header .search-form {
 
 header h1 {
     font-size: 50px;
-    margin-top: 0px;
+    margin-top: 0;
     margin-right: 80px;
 }
 header .search-form{
-    width:70%;
+    width: 70%;
 }
 
 header a {

@@ -17,4 +17,6 @@ let bookSchema = new Schema({
     collection: 'books'
 })
 
-module.exports = mongoose.model('Books', bookSchema);
+bookSchema.index({'uid': 'text', 'title': 'text', 'description': 'text'})
+
+module.exports = mongoose.model('Books', bookSchema)
