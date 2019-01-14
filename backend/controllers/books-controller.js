@@ -14,8 +14,8 @@ router.route('/all-books').get((req, res) => {
     })
 })
 
-router.route('/:uid').get((req, res) => {
-    Books.find({$text: {$search: req.params.uid}}, (err, books) => {
+router.route('/:query').get((req, res) => {
+    Books.find({$text: {$search: req.params.query}}, (err, books) => {
         if(err){
             throw err
         }
