@@ -3,6 +3,7 @@ import Book from './book'
 import axios from 'axios';
 import './App.css'
 import './index.css'
+import './searchResults.css'
 
 class SearchResults extends Component {
     
@@ -30,14 +31,21 @@ class SearchResults extends Component {
                 </div>
             )      
         })
-  
-        return (
-            <div className="books-container">
-                <div className="row">
-                    { booksList }
+        
+        if(books.length > 0){
+            return (
+                <div className="books-container">
+                    <div className="row">
+                        { booksList }
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else{
+            return(
+                <span className="not-found">Not Found</span>
+            );
+        }
     }
 }
 
