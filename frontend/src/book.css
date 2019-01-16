@@ -4,8 +4,7 @@
     display: grid;
     grid-template-columns: 250px 170px;
     grid-template-areas: "img text";
-    border: 2px solid black;
-    border-radius: 5px;
+    border: 0.5px solid black;
     margin: 20px;
 
     transition-duration: 0.3s;
@@ -21,12 +20,6 @@
 .book-left {
     grid-area: img;
     margin-bottom: 4px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
     overflow: hidden;
 }
 
@@ -53,3 +46,6 @@
     top: 20px;
 }
 
+img:hover {
+    cursor: pointer;
+}

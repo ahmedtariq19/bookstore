@@ -1,12 +1,26 @@
 import React, { Component } from 'react'
+import { BrowserRouter, withRouter } from 'react-router-dom'
 import './book.css'
 
 class Book extends Component {
     render(){
+
+        const Image = withRouter(({ history }) => (
+            <img 
+                src={require('.'+this.props.data.thumbnailLink)} 
+                height="auto" 
+                width="100%" 
+                alt={this.props.data.thumbnailLink}
+                onClick={() => {
+                    history.push('/book/'+this.props.data.uid)
+                }}
+            />
+        ))
+
         return(
             <div className="book-container">
                 <div className="book-left">
-                    <img src={require('.'+this.props.data.thumbnailLink)} height="auto" width="100%" alt={this.props.data.thumbnailLink}/>
+                    <BrowserRouter forceRefresh={true}><Image></Image></BrowserRouter>
                 </div>
                 <div className="book-right">
                     <div className="metadata">

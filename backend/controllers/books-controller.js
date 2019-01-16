@@ -25,4 +25,15 @@ router.route('/:query').get((req, res) => {
     })
 })
 
+router.route('/:uid').get((req, res) => {
+    Books.find({'uid': req.params.uid}, (err, book) => {
+        if(err){
+            throw err
+        }
+        else{
+            res.json(book)
+        }
+    })
+})
+
 module.exports = router

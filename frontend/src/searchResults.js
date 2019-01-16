@@ -33,7 +33,7 @@ class SearchResults extends Component {
         })
         
         if(books.length > 0){
-            return (
+            return(
                 <div className="books-container">
                     <div className="row">
                         { booksList }
