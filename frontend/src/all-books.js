@@ -1,43 +1,41 @@
-import React, { Component } from 'react';
-import Book from './book'
-import axios from 'axios';
-import './index.css'
+import React, { Component } from "react";
+import Book from "./book";
+import axios from "axios";
+import "./index.css";
 
 class AllBooks extends Component {
-
     constructor(props) {
-        super(props)
-        this.state = {books: []}
+        super(props);
+        this.state = { books: [] };
     }
-    
-    componentDidMount(){
-        axios.get('http://localhost:3001/books/all-books')
-        .then(response => {
-            this.setState({books:response.data})
-        })
-        .catch(err => {
-            console.log(err)
-        })
+
+    componentDidMount() {
+        axios
+            .get("http://localhost:3001/books/all-books")
+            .then(response => {
+                this.setState({ books: response.data });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
-    
-    render(){
-        let books = this.state.books
+
+    render() {
+        let books = this.state.books;
         let booksList = books.map(book => {
-            return ( 
+            return (
                 <div className="col-sm-6 col-md-4" key={book.uid}>
-                    <Book data={ book }/>
+                    <Book data={book} />
                 </div>
-            )      
-        })
-  
+            );
+        });
+
         return (
             <div className="books-container">
-                <div className="row">
-                    { booksList }
-                </div>
+                <div className="row">{booksList}</div>
             </div>
         );
     }
 }
 
-export default AllBooks
+export default AllBooks;
