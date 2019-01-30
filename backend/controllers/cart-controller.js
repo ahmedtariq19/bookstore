@@ -13,7 +13,7 @@ router.route("/add-to-cart/:uid").get((req, res) => {
             let item = book[0];
             cart.add(item, item.uid);
             req.session.cart = cart;
-            res.json(req.session.cart.totalQty);
+            res.json(req.session.cart);
         }
     });
 });

@@ -13,8 +13,9 @@ import axios from "axios";
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { count: "" };
+        this.state = { count: 0 };
         this.addToCart = this.addToCart.bind(this);
+        this.increaseCount = this.increaseCount.bind(this);
     }
 
     componentDidMount() {
@@ -27,8 +28,16 @@ class App extends Component {
         axios
             .get("http://localhost:3001/cart/add-to-cart/" + uid)
             .then(response => {
-                this.setState({ count: response.data });
+                this.setState({
+                    count: response.data.totalQty
+                });
             });
+    };
+
+    increaseCount = () => {
+        // Increase cartIcon count by one from cart view.
+        let newCount = this.state.count + 1;
+        this.setState({ count: newCount });
     };
 
     render() {
@@ -73,7 +82,12 @@ class App extends Component {
                                     <BookInfo uid={props.match.params.uid} />
                                 )}
                             />
-                            <Route path="/cart" render={props => <Cart />} />
+                            <Route
+                                path="/cart"
+                                render={() => (
+                                    <Cart increaseCount={this.increaseCount} />
+                                )}
+                            />
                         </Switch>
                     </BrowserRouter>
                 </div>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
-import { throws } from "assert";
 
 class Cart extends Component {
     constructor(props) {
@@ -16,13 +15,32 @@ class Cart extends Component {
         axios
             .get("http://localhost:3001/cart/getCart")
             .then(response => {
+                let tmp = [];
                 for (let order in response.data.items) {
-                    this.state.orders.push(response.data.items[order]);
+                    tmp.push(response.data.items[order]);
                 }
-                this.setState({ totalPrice: response.data.totalPrice });
+                this.setState({
+                    orders: tmp,
+                    totalPrice: response.data.totalPrice.toFixed(2)
+                });
             })
             .catch(err => {
                 console.log(err);
+            });
+    }
+
+    addOne(uid) {
+        axios
+            .get("http://localhost:3001/cart/add-to-cart/" + uid)
+            .then(response => {
+                let tmp = [];
+                for (let order in response.data.items) {
+                    tmp.push(response.data.items[order]);
+                }
+                this.setState({
+                    orders: tmp,
+                    totalPrice: response.data.totalPrice.toFixed(2)
+                });
             });
     }
 
@@ -41,7 +59,14 @@ class Cart extends Component {
                             <button class="btn btn-success" aria-label="Remove">
                                 Remove
                             </button>
-                            <button class="btn btn-success" aria-label="+1">
+                            <button
+                                class="btn btn-success"
+                                aria-label="+1"
+                                onClick={() => {
+                                    this.addOne(order.item.uid);
+                                    this.props.increaseCount();
+                                }}
+                            >
                                 +1
                             </button>
                             <button class="btn btn-success" aria-label="-1">
@@ -49,7 +74,8 @@ class Cart extends Component {
                             </button>
                         </div>
                         <span className="qty-price">
-                            Quantity: {order.qty} | Price: {order.price}
+                            Quantity: {order.qty} | Price:{" "}
+                            {order.price.toFixed(2)}
                         </span>
                     </div>
                 </div>
