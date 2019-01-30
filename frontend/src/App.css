@@ -69,6 +69,12 @@ nav a {
     margin: 0;
 }
 
+.tools {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+}
+
 .qty-price {
     position: absolute;
     left: 70%;

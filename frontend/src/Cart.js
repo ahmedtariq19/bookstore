@@ -35,8 +35,19 @@ class Cart extends Component {
                         <img src={require("." + order.item.thumbnailLink)} />
                         <span>
                             <h3>{order.item.title}</h3>
-                            <p>{order.item.metadata.authors[0].name}</p>
+                            <p>By {order.item.metadata.authors[0].name}</p>
                         </span>
+                        <div className="tools">
+                            <button class="btn btn-success" aria-label="Remove">
+                                Remove
+                            </button>
+                            <button class="btn btn-success" aria-label="+1">
+                                +1
+                            </button>
+                            <button class="btn btn-success" aria-label="-1">
+                                -1
+                            </button>
+                        </div>
                         <span className="qty-price">
                             Quantity: {order.qty} | Price: {order.price}
                         </span>
