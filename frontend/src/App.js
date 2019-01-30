@@ -4,22 +4,79 @@ import "./App.css";
 import AllBooks from "./all-books";
 import SearchResults from "./searchResults";
 import BookInfo from "./bookInfo";
+import SearchBar from "./searchBar";
+import CartIcon from "./cartIcon";
+import LoginIcon from "./loginIcon";
+import Cart from "./Cart";
+import axios from "axios";
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { count: "" };
+        this.addToCart = this.addToCart.bind(this);
+    }
+
+    componentDidMount() {
+        axios.get("http://localhost:3001/getCartQty/").then(response => {
+            this.setState({ count: response.data });
+        });
+    }
+
+    addToCart = uid => {
+        axios
+            .get("http://localhost:3001/cart/add-to-cart/" + uid)
+            .then(response => {
+                this.setState({ count: response.data });
+            });
+    };
+
     render() {
         return (
-            <div className="container-fluid">
-                <BrowserRouter>
-                    <Switch>
-                        {/* <Route exact path="/" /> */}
-                        <Route exact path="/" component={AllBooks} />
-                        <Route
-                            path="/books/:search"
-                            component={SearchResults}
+            <div>
+                <header className="header">
+                    <h1 className="title">
+                        <a href="/">Tao.co</a>
+                    </h1>
+                    <div className="search-form">
+                        <SearchBar />
+                    </div>
+                    <nav className="navs">
+                        <LoginIcon className="login-icon" />
+                        <CartIcon
+                            count={this.state.count}
+                            className="cart-icon"
                         />
-                        <Route path="/book/:uid" component={BookInfo} />
-                    </Switch>
-                </BrowserRouter>
+                    </nav>
+                </header>
+                <div className="container-fluid">
+                    <BrowserRouter>
+                        <Switch>
+                            <Route
+                                exact
+                                path="/"
+                                render={() => (
+                                    <AllBooks addToCart={this.addToCart} />
+                                )}
+                            />
+                            <Route
+                                path="/books/:search"
+                                render={props => (
+                                    <SearchResults
+                                        query={props.match.params.search}
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/book/:uid"
+                                render={props => (
+                                    <BookInfo uid={props.match.params.uid} />
+                                )}
+                            />
+                            <Route path="/cart" render={props => <Cart />} />
+                        </Switch>
+                    </BrowserRouter>
+                </div>
             </div>
         );
     }

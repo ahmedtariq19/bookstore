@@ -13,6 +13,7 @@ router.route("/all-books").get((req, res) => {
 });
 
 router.route("/:query").get((req, res) => {
+    console.log("query:", req.params);
     Books.find({ $text: { $search: req.params.query } }, (err, books) => {
         if (err) {
             throw err;

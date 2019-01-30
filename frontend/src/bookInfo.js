@@ -21,15 +21,15 @@ class BookInfo extends Component {
         };
     }
 
-    addToCart = () => {
-        axios.get(
-            "http://localhost:3001/cart/add-to-cart/" + this.props.data.uid
-        );
-    };
+    // addToCart = () => {
+    //     axios.get(
+    //         "http://localhost:3001/cart/add-to-cart/" + this.props.data.uid
+    //     );
+    // };
 
     componentDidMount() {
         axios
-            .get("http://localhost:3001/books/" + this.props.match.params.uid)
+            .get("http://localhost:3001/books/" + this.props.uid)
             .then(response => {
                 this.setState({
                     data: response.data[0],

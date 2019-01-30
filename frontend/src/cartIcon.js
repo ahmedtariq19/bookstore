@@ -5,14 +5,6 @@ import "./cartIcon.css";
 class CartIcon extends Component {
     constructor(props) {
         super(props);
-        this.state = { totalQty: 0 };
-    }
-
-    componentDidMount() {
-        axios.get("http://localhost:3001/getCartQty").then(response => {
-            console.log(response.data);
-            this.setState({ totalQty: response.data });
-        });
     }
 
     render() {
@@ -23,7 +15,7 @@ class CartIcon extends Component {
                     aria-hidden="true"
                 />
                 <span className="badge badge-warning count">
-                    {this.state.totalQty}
+                    {this.props.count}
                 </span>
             </a>
         );

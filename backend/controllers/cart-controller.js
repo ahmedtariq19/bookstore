@@ -13,9 +13,13 @@ router.route("/add-to-cart/:uid").get((req, res) => {
             let item = book[0];
             cart.add(item, item.uid);
             req.session.cart = cart;
-            res.redirect("/");
+            res.json(req.session.cart.totalQty);
         }
     });
+});
+
+router.route("/getCart").get((req, res) => {
+    res.json(req.session.cart);
 });
 
 module.exports = router;

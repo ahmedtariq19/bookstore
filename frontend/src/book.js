@@ -6,11 +6,9 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 class Book extends Component {
-    addToCart = () => {
-        axios.get(
-            "http://localhost:3001/cart/add-to-cart/" + this.props.data.uid
-        );
-    };
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         const Image = withRouter(({ history }) => (
@@ -56,7 +54,9 @@ class Book extends Component {
                             <button
                                 type="button"
                                 className="btn btn-primary"
-                                onClick={this.addToCart}
+                                onClick={() => {
+                                    this.props.addToCart(this.props.data.uid);
+                                }}
                             >
                                 Select
                             </button>

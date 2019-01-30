@@ -25,7 +25,7 @@ class AllBooks extends Component {
         let booksList = books.map(book => {
             return (
                 <div className="col-sm-6 col-md-4" key={book.uid}>
-                    <Book data={book} />
+                    <Book data={book} addToCart={this.props.addToCart} />
                 </div>
             );
         });
