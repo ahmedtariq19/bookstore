@@ -12,7 +12,7 @@ router.route("/all-books").get((req, res) => {
     });
 });
 
-router.route("/:query").get((req, res) => {
+router.route("/search/:query").get((req, res) => {
     console.log("query:", req.params);
     Books.find({ $text: { $search: req.params.query } }, (err, books) => {
         if (err) {
@@ -23,12 +23,12 @@ router.route("/:query").get((req, res) => {
     });
 });
 
-router.route("/:uid").get((req, res) => {
-    Books.find({ uid: req.params.uid }, (err, book) => {
+router.route("/getRandom").get((req, res) => {
+    Books.aggregate([{ $sample: { size: 4 } }], (err, books) => {
         if (err) {
             throw err;
         } else {
-            res.json(book);
+            res.json(books);
         }
     });
 });

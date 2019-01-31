@@ -15,7 +15,7 @@ class SearchResults extends Component {
 
     componentDidMount() {
         axios
-            .get("http://localhost:3001/books/" + this.props.query)
+            .get("http://localhost:3001/books/search" + this.props.query)
             .then(response => {
                 this.setState({ books: response.data });
             })

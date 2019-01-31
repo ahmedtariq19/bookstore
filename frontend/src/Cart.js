@@ -1,32 +1,33 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
+import { BrowserRouter, withRouter } from "react-router-dom";
 
 class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
             orders: [],
-            totalPrice: 0
+            totalPrice: 0,
+            recommendations: []
         };
     }
 
     componentDidMount() {
-        axios
-            .get("http://localhost:3001/cart/getCart")
-            .then(response => {
-                let tmp = [];
-                for (let order in response.data.items) {
-                    tmp.push(response.data.items[order]);
-                }
-                this.setState({
-                    orders: tmp,
-                    totalPrice: response.data.totalPrice.toFixed(2)
-                });
-            })
-            .catch(err => {
-                console.log(err);
+        Promise.all([
+            axios.get("http://localhost:3001/cart/getCart"),
+            axios.get("http://localhost:3001/books/getRandom")
+        ]).then(([cartResponse, recommResponse]) => {
+            let tmp = [];
+            for (let order in cartResponse.data.items) {
+                tmp.push(cartResponse.data.items[order]);
+            }
+            this.setState({
+                orders: tmp,
+                totalPrice: cartResponse.data.totalPrice.toFixed(2),
+                recommendations: recommResponse.data
             });
+        });
     }
 
     addOne(uid) {
@@ -76,7 +77,7 @@ class Cart extends Component {
 
     render() {
         let orders = this.state.orders;
-        if (orders.length == 0) {
+        if (orders.length === 0) {
             return (
                 <div className="cart-container">
                     <div className="cart-main">
@@ -90,7 +91,7 @@ class Cart extends Component {
         }
         let ordersList = orders.map(order => {
             return (
-                <div className="row">
+                <div className="row" key={order.item.uid}>
                     <div className="order-info">
                         <img
                             src={require("." + order.item.thumbnailLink)}
@@ -112,7 +113,7 @@ class Cart extends Component {
                                 Remove
                             </button>
                             <button
-                                class="btn btn-success"
+                                className="btn btn-success"
                                 aria-label="+1"
                                 onClick={() => {
                                     this.addOne(order.item.uid);
@@ -122,7 +123,7 @@ class Cart extends Component {
                                 +1
                             </button>
                             <button
-                                class="btn btn-success"
+                                className="btn btn-success"
                                 aria-label="-1"
                                 onClick={() => {
                                     this.minusOne(order.item.uid);
@@ -135,6 +136,37 @@ class Cart extends Component {
                         <span className="qty-price">
                             Quantity: {order.qty} | Price:{" "}
                             {order.price.toFixed(2)}
+                        </span>
+                    </div>
+                </div>
+            );
+        });
+
+        let recomm = this.state.recommendations;
+        let recommList = recomm.map(rec => {
+            const Image = withRouter(({ history }) => (
+                <img
+                    src={require("." + rec.thumbnailLink)}
+                    alt={rec.thumbnailLink}
+                    onClick={() => {
+                        history.push("/book/" + rec.uid);
+                    }}
+                />
+            ));
+            return (
+                <div className="row">
+                    <div className="rec-container">
+                        <BrowserRouter forceRefresh={true}>
+                            <Image />
+                        </BrowserRouter>
+
+                        {/* <img
+                            src={require("." + rec.thumbnailLink)}
+                            alt={rec.thumbnailLink}
+                        /> */}
+                        <span className="rec-description">
+                            <h4>{rec.title}</h4>
+                            By {rec.metadata.authors[0].name}
                         </span>
                     </div>
                 </div>
@@ -157,7 +189,10 @@ class Cart extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="cart-recommendation" />
+                <div className="cart-recommendation">
+                    <h4>Other viewers also viewed</h4>
+                    {recommList}
+                </div>
             </div>
         );
     }
