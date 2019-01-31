@@ -6,10 +6,6 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 class Book extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const Image = withRouter(({ history }) => (
             <img

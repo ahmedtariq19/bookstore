@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
 import "./cartIcon.css";
 
 class CartIcon extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <a href="cart">

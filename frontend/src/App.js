@@ -16,6 +16,8 @@ class App extends Component {
         this.state = { count: 0 };
         this.addToCart = this.addToCart.bind(this);
         this.increaseCount = this.increaseCount.bind(this);
+        this.decreaseCount = this.decreaseCount.bind(this);
+        this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +40,21 @@ class App extends Component {
         // Increase cartIcon count by one from cart view.
         let newCount = this.state.count + 1;
         this.setState({ count: newCount });
+    };
+
+    decreaseCount = () => {
+        // Decrease cartIcon count by one from cart view.
+        let newCount = this.state.count - 1;
+        this.setState({ count: newCount });
+    };
+
+    remove = uid => {
+        // Remove the item from the cart.
+        axios.get("http://localhost:3001/cart/getCart").then(response => {
+            let qty = response.data.items[uid].qty;
+            let newCount = this.state.count - qty;
+            this.setState({ count: newCount });
+        });
     };
 
     render() {
@@ -85,7 +102,11 @@ class App extends Component {
                             <Route
                                 path="/cart"
                                 render={() => (
-                                    <Cart increaseCount={this.increaseCount} />
+                                    <Cart
+                                        increaseCount={this.increaseCount}
+                                        decreaseCount={this.decreaseCount}
+                                        remove={this.remove}
+                                    />
                                 )}
                             />
                         </Switch>
