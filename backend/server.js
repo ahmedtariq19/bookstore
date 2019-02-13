@@ -9,10 +9,12 @@ const MongoStore = require("connect-mongo")(session);
 const cookieParser = require("cookie-parser");
 const booksRoute = require("./controllers/books-controller");
 const cartRoute = require("./controllers/cart-controller.js");
-
+const userRoute = require("./controllers/user-controller.js");
+const passport = require("passport");
 const API_PORT = 3001;
 const app = express();
 const router = express.Router();
+require("./config/passport");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,10 +28,6 @@ app.use(
 );
 
 app.use(express.static(__dirname + "/../frontend/public"));
-
-app.set("views", __dirname + "/../frontend/public/");
-app.set("view engine", "html");
-app.engine("html", require("ejs").__express);
 
 mongoose.connect(
     "mongodb://localhost:27017/shopping-cart",
@@ -58,9 +56,12 @@ router.route("/getCartQty").get((req, res, next) => {
 });
 
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/", router);
 app.use("/cart", cartRoute);
 app.use("/books", booksRoute);
+app.use("/user", userRoute);
 
 app.listen(API_PORT, () =>
     console.log(`Shopping-cart's backend is listening on port ${API_PORT}`)

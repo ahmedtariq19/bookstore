@@ -6,8 +6,10 @@ import SearchResults from "./searchResults";
 import BookInfo from "./bookInfo";
 import SearchBar from "./searchBar";
 import CartIcon from "./cartIcon";
-import LoginIcon from "./loginIcon";
+import ProfileIcon from "./profileIcon";
 import Cart from "./Cart";
+import Profile from "./profile";
+import Signup from "./signup";
 import axios from "axios";
 
 class App extends Component {
@@ -68,7 +70,7 @@ class App extends Component {
                         <SearchBar />
                     </div>
                     <nav className="navs">
-                        <LoginIcon className="login-icon" />
+                        <ProfileIcon className="profile-icon" />
                         <CartIcon
                             count={this.state.count}
                             className="cart-icon"
@@ -90,6 +92,7 @@ class App extends Component {
                                 render={props => (
                                     <SearchResults
                                         query={props.match.params.search}
+                                        addToCart={this.addToCart}
                                     />
                                 )}
                             />
@@ -109,6 +112,8 @@ class App extends Component {
                                     />
                                 )}
                             />
+                            <Route path="/signup" render={() => <Signup />} />
+                            <Route path="/profile" render={() => <Profile />} />
                         </Switch>
                     </BrowserRouter>
                 </div>
