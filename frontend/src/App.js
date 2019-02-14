@@ -10,6 +10,7 @@ import ProfileIcon from "./profileIcon";
 import Cart from "./Cart";
 import Profile from "./profile";
 import Signup from "./signup";
+import Login from "./logIn";
 import axios from "axios";
 
 class App extends Component {
@@ -114,6 +115,7 @@ class App extends Component {
                             />
                             <Route path="/signup" render={() => <Signup />} />
                             <Route path="/profile" render={() => <Profile />} />
+                            <Route path="/login" render={() => <Login />} />
                         </Switch>
                     </BrowserRouter>
                 </div>

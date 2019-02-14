@@ -4,7 +4,7 @@ import axios from "axios";
 class ProfileIcon extends Component {
     constructor(props) {
         super(props);
-        this.state = { route: "/signup" };
+        this.state = { route: "/login" };
     }
 
     componentDidMount() {

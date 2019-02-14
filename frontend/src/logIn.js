@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "./signup.css";
 import axios from "axios";
 import { Redirect } from "react-router";
+import "./signup.css";
 
-class Signup extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = { username: "", password: "", redirect: false };
@@ -11,23 +12,13 @@ class Signup extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        axios.get("http://localhost:3001/user/checkLoggedIn").then(response => {
-            if (response.data) {
-                this.setState({ redirect: true });
-            } else {
-                this.setState({ redirect: false });
-            }
-        });
-    }
-
     handleSubmit(event) {
-        if (!this.state.username && !this.state.password) {
+        if (!this.state.username || !this.state.password) {
             alert("Username and Password cannot be blank");
             return;
         }
         axios
-            .post("http://localhost:3001/user/signup", {
+            .post("http://localhost:3001/user/login", {
                 username: this.state.username,
                 password: this.state.password
             })
@@ -35,21 +26,23 @@ class Signup extends Component {
                 if (response.data.error) {
                     alert(response.data.error);
                 } else {
-                    console.log("successful signup");
+                    alert("Successfully Logged In");
                     this.setState({
                         redirect: "true"
                     });
                 }
             });
     }
+
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         });
     }
+
     render() {
         if (this.state.redirect) {
-            return <Redirect to="/profile" />;
+            return <Redirect to="/" />;
         }
         return (
             <div className="signup-container">
@@ -81,12 +74,15 @@ class Signup extends Component {
                         </div>
                     </div>
                     <button type="submit" onClick={this.handleSubmit}>
-                        Sign Up
+                        Log In
                     </button>
+                    <a href="/signup" className="signup-link">
+                        <strong>Sign Up</strong>
+                    </a>
                 </div>
             </div>
         );
     }
 }
 
-export default Signup;
+export default Login;
