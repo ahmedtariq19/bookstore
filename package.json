@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "concurrently": "^4.1.0",
     "cors": "^2.8.5"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd frontend && npm run start\" \"nodemon backend/server.js\""
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,4 @@
     "url": "https://github.com/taochu/E-commerce-Website/issues"
   },
   "homepage": "https://github.com/taochu/E-commerce-Website#readme"
-
 }

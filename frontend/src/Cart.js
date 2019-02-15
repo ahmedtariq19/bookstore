@@ -22,11 +22,19 @@ class Cart extends Component {
             for (let order in cartResponse.data.items) {
                 tmp.push(cartResponse.data.items[order]);
             }
-            this.setState({
-                orders: tmp,
-                totalPrice: cartResponse.data.totalPrice.toFixed(2),
-                recommendations: recommResponse.data
-            });
+            if (tmp) {
+                this.setState({
+                    orders: tmp,
+                    totalPrice: cartResponse.data.totalPrice.toFixed(2),
+                    recommendations: recommResponse.data
+                });
+            } else {
+                this.setState({
+                    orders: tmp,
+                    totalPrice: 0,
+                    recommendations: recommResponse.data
+                });
+            }
         });
     }
 
@@ -68,10 +76,17 @@ class Cart extends Component {
                 for (let order in response.data.items) {
                     tmp.push(response.data.items[order]);
                 }
-                this.setState({
-                    orders: tmp,
-                    totalPrice: response.data.totalPrice.toFixed(2)
-                });
+                if (tmp) {
+                    this.setState({
+                        orders: tmp,
+                        totalPrice: response.data.totalPrice.toFixed(2)
+                    });
+                } else {
+                    this.setState({
+                        orders: tmp,
+                        totalPrice: 0
+                    });
+                }
             });
     }
 
